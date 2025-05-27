@@ -38,6 +38,13 @@ services:
     networks:
       - app-network
 
+  npm:
+    image: node:20
+    working_dir: /var/www
+    entrypoint: ["npm"]
+    volumes:
+      - ./app:/var/www
+
   db:
     image: mariadb:latest
     container_name: db

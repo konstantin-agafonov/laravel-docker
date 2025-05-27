@@ -1,0 +1,63 @@
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: ura-heat
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www
+
+    volumes:
+      - ./app:/var/www
+      - ./docker-files/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+
+    networks:
+      - app-network
+
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+
+    ports:
+      - 8100:80
+      - 8143:443
+
+    volumes:
+      - ./app:/var/www
+      - ./docker-files/nginx/conf.d/:/etc/nginx/conf.d/
+
+    networks:
+      - app-network
+
+  db:
+    image: mariadb:latest
+    container_name: db
+    restart: unless-stopped
+    tty: true
+
+    ports:
+      - 3306:3306
+
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: 12345
+
+    volumes:
+      - ./dbdata:/var/lib/mysql
+      - ./docker-files/mysql/my.cnf:/etc/mysql/my.cnf
+
+    networks:
+      - app-network
+
+volumes:
+  dbdata:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge

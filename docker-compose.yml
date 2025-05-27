@@ -22,10 +22,13 @@ services:
     container_name: webserver
     restart: unless-stopped
     tty: true
+    healthcheck:
+      test: ["CMD", "service", "nginx", "status"]
+      interval: 5s
 
     ports:
-      - 8100:80
-      - 8143:443
+      - "8100:80"
+      - "8143:443"
 
     volumes:
       - ./app:/var/www
@@ -41,7 +44,7 @@ services:
     tty: true
 
     ports:
-      - 3306:3306
+      - "3306:3306"
 
     environment:
       MYSQL_DATABASE: laravel

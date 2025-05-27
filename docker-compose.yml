@@ -48,18 +48,13 @@ services:
       - "3306:3306"
 
     environment:
-      #MARIADB_USER: dbuser
-      #MARIADB_PASSWORD: 12345
-      #MARIADB_DATABASE: laravel
-      #MARIADB_ROOT_PASSWORD: 123456
-
-      #MYSQL_DATABASE: laravel
-      #MYSQL_ROOT_PASSWORD: 12345
-
-      MYSQL_ROOT_PASSWORD: 12345678
       MYSQL_DATABASE: db_laravel
-      MYSQL_USER: db_user
-      MYSQL_PASSWORD: 12345
+      MYSQL_ROOT_PASSWORD: 12345
+
+      #MYSQL_ROOT_PASSWORD: 12345678
+      #MYSQL_DATABASE: db_laravel
+      #MYSQL_USER: db_user
+      #MYSQL_PASSWORD: 12345
 
     volumes:
       - ./dbdata:/var/lib/mysql

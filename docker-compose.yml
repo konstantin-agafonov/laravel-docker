@@ -55,10 +55,7 @@ services:
       - "3306:3306"
 
     environment:
-      MYSQL_DATABASE: db_laravel
       MYSQL_ROOT_PASSWORD: 12345
-
-      #MYSQL_ROOT_PASSWORD: 12345678
       #MYSQL_DATABASE: db_laravel
       #MYSQL_USER: db_user
       #MYSQL_PASSWORD: 12345
@@ -67,6 +64,17 @@ services:
       - ./dbdata:/var/lib/mysql
       - ./docker-files/mysql/my.cnf:/etc/mysql/my.cnf
 
+    networks:
+      - app-network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=db
+      #- PMA_ARBITRARY=1
     networks:
       - app-network
 

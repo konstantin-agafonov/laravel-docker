@@ -34,7 +34,7 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 COPY ./app/* /var/www
 
 COPY --chown=www:www ./app/* /var/www
-RUN chown -R www-data:www-data /var/www
+#RUN chown -R www-data:www-data /var/www
 
 USER www
 
